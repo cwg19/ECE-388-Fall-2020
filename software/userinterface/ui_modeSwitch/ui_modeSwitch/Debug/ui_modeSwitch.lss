@@ -1,0 +1,181 @@
+
+ui_modeSwitch.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000001b4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000140  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000001  00800100  00800100  000001b4  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001b4  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001e4  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000058  00000000  00000000  00000224  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000d1c  00000000  00000000  0000027c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000a38  00000000  00000000  00000f98  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000042d  00000000  00000000  000019d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000a8  00000000  00000000  00001e00  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000588  00000000  00000000  00001ea8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000002ea  00000000  00000000  00002430  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000048  00000000  00000000  0000271a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 5a 00 	jmp	0xb4	; 0xb4 <__ctors_end>
+   4:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+   8:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+   c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  10:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  14:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  18:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  1c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  20:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  24:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  28:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  2c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  30:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  34:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  38:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  3c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  40:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  44:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  48:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  4c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  50:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  54:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  58:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  5c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  60:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  64:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  68:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  6c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  70:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  74:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  78:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  7c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  80:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  84:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  88:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  8c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  90:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  94:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  98:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  9c:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  a0:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  a4:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  a8:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  ac:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+  b0:	0c 94 77 00 	jmp	0xee	; 0xee <__bad_interrupt>
+
+000000b4 <__ctors_end>:
+  b4:	11 24       	eor	r1, r1
+  b6:	1f be       	out	0x3f, r1	; 63
+  b8:	cf ef       	ldi	r28, 0xFF	; 255
+  ba:	d8 e0       	ldi	r29, 0x08	; 8
+  bc:	de bf       	out	0x3e, r29	; 62
+  be:	cd bf       	out	0x3d, r28	; 61
+
+000000c0 <__do_copy_data>:
+  c0:	11 e0       	ldi	r17, 0x01	; 1
+  c2:	a0 e0       	ldi	r26, 0x00	; 0
+  c4:	b1 e0       	ldi	r27, 0x01	; 1
+  c6:	e0 e4       	ldi	r30, 0x40	; 64
+  c8:	f1 e0       	ldi	r31, 0x01	; 1
+  ca:	02 c0       	rjmp	.+4      	; 0xd0 <__do_copy_data+0x10>
+  cc:	05 90       	lpm	r0, Z+
+  ce:	0d 92       	st	X+, r0
+  d0:	a0 30       	cpi	r26, 0x00	; 0
+  d2:	b1 07       	cpc	r27, r17
+  d4:	d9 f7       	brne	.-10     	; 0xcc <__do_copy_data+0xc>
+
+000000d6 <__do_clear_bss>:
+  d6:	21 e0       	ldi	r18, 0x01	; 1
+  d8:	a0 e0       	ldi	r26, 0x00	; 0
+  da:	b1 e0       	ldi	r27, 0x01	; 1
+  dc:	01 c0       	rjmp	.+2      	; 0xe0 <.do_clear_bss_start>
+
+000000de <.do_clear_bss_loop>:
+  de:	1d 92       	st	X+, r1
+
+000000e0 <.do_clear_bss_start>:
+  e0:	a1 30       	cpi	r26, 0x01	; 1
+  e2:	b2 07       	cpc	r27, r18
+  e4:	e1 f7       	brne	.-8      	; 0xde <.do_clear_bss_loop>
+  e6:	0e 94 79 00 	call	0xf2	; 0xf2 <main>
+  ea:	0c 94 9e 00 	jmp	0x13c	; 0x13c <_exit>
+
+000000ee <__bad_interrupt>:
+  ee:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000f2 <main>:
+
+
+
+int main(void)
+{
+	ROTARY_DDR &= ~((1<<ROTARY_A) | (1<<ROTARY_B) | (1<<ROTARY_BUTTON));
+  f2:	87 b1       	in	r24, 0x07	; 7
+  f4:	88 7f       	andi	r24, 0xF8	; 248
+  f6:	87 b9       	out	0x07, r24	; 7
+	ROTARY_PORT |= (1<<ROTARY_A) | (1<<ROTARY_B) | (1<<ROTARY_BUTTON);
+  f8:	88 b1       	in	r24, 0x08	; 8
+  fa:	87 60       	ori	r24, 0x07	; 7
+  fc:	88 b9       	out	0x08, r24	; 8
+	uint8_t aLastState = ROTARY_PIN & (1<<ROTARY_A);
+  fe:	46 b1       	in	r20, 0x06	; 6
+ 100:	41 70       	andi	r20, 0x01	; 1
+	uint8_t aState = 0;
+    while (1) 
+    {
+		aState = ROTARY_PIN & (1<<ROTARY_A);
+ 102:	86 b1       	in	r24, 0x06	; 6
+ 104:	81 70       	andi	r24, 0x01	; 1
+		if (aState != aLastState) {
+ 106:	48 17       	cp	r20, r24
+ 108:	91 f0       	breq	.+36     	; 0x12e <main+0x3c>
+			if ((ROTARY_PIN & (1<<ROTARY_B)) != aState) {
+ 10a:	26 b1       	in	r18, 0x06	; 6
+ 10c:	22 70       	andi	r18, 0x02	; 2
+ 10e:	30 e0       	ldi	r19, 0x00	; 0
+ 110:	90 e0       	ldi	r25, 0x00	; 0
+ 112:	28 17       	cp	r18, r24
+ 114:	39 07       	cpc	r19, r25
+ 116:	31 f0       	breq	.+12     	; 0x124 <main+0x32>
+				count++;
+ 118:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_end>
+ 11c:	8f 5f       	subi	r24, 0xFF	; 255
+ 11e:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_end>
+ 122:	05 c0       	rjmp	.+10     	; 0x12e <main+0x3c>
+			}
+			else {
+				count--;
+ 124:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_end>
+ 128:	81 50       	subi	r24, 0x01	; 1
+ 12a:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_end>
+			}
+		}
+		if (~(ROTARY_PIN & (1<<ROTARY_BUTTON))) {
+ 12e:	86 b1       	in	r24, 0x06	; 6
+			count+=20;
+ 130:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_end>
+ 134:	8c 5e       	subi	r24, 0xEC	; 236
+ 136:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_end>
+ 13a:	e3 cf       	rjmp	.-58     	; 0x102 <main+0x10>
+
+0000013c <_exit>:
+ 13c:	f8 94       	cli
+
+0000013e <__stop_program>:
+ 13e:	ff cf       	rjmp	.-2      	; 0x13e <__stop_program>

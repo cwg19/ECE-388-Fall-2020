@@ -1,2 +1,2 @@
-# ECE-388-Fall-2020
+# Function Generator
 UMassD ECE 388 Embedded System Design Course 

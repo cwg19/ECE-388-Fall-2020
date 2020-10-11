@@ -1,5 +1,5 @@
 # Function Generator
-## UMassD ECE 388 Embedded System Design Course 
+## UMassD ECE 388 Embedded System Design
 
 ### Project Scope
 Simple Function gnerator

@@ -146,7 +146,19 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="rotary.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="rotary.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="twimaster.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="userinterface.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="userinterface.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

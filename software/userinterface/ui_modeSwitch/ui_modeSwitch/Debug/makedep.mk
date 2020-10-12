@@ -6,5 +6,9 @@ lcd_i2cmaster.c
 
 main.c
 
+rotary.c
+
 twimaster.c
+
+userinterface.c
 

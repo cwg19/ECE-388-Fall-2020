@@ -39,7 +39,9 @@ SUBDIRS :=
 C_SRCS +=  \
 ../lcd_i2cmaster.c \
 ../main.c \
-../twimaster.c
+../rotary.c \
+../twimaster.c \
+../userinterface.c
 
 
 PREPROCESSING_SRCS += 
@@ -51,22 +53,30 @@ ASM_SRCS +=
 OBJS +=  \
 lcd_i2cmaster.o \
 main.o \
-twimaster.o
+rotary.o \
+twimaster.o \
+userinterface.o
 
 OBJS_AS_ARGS +=  \
 lcd_i2cmaster.o \
 main.o \
-twimaster.o
+rotary.o \
+twimaster.o \
+userinterface.o
 
 C_DEPS +=  \
 lcd_i2cmaster.d \
 main.d \
-twimaster.d
+rotary.d \
+twimaster.d \
+userinterface.d
 
 C_DEPS_AS_ARGS +=  \
 lcd_i2cmaster.d \
 main.d \
-twimaster.d
+rotary.d \
+twimaster.d \
+userinterface.d
 
 OUTPUT_FILE_PATH +=ui_modeSwitch.elf
 
@@ -96,7 +106,21 @@ LINKER_SCRIPT_DEP+=
 	@echo Finished building: $<
 	
 
+./rotary.o: .././rotary.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 ./twimaster.o: .././twimaster.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./userinterface.o: .././userinterface.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

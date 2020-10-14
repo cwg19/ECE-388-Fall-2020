@@ -32,18 +32,19 @@
 #define SLEEP1 7
 #define SLEEP12 6 // potentially useful for PWM
 #define OPBITEN 5
-#define DIV2 3
+#define DIV2 3 // when DIV2 == 1 then MSB of DAC is passed to vout // when DIV2 = 0 then MSB/2 of DAC is passed to vout
 #define MODE 1
 #define FREQ0_D_MASK 0x4000
 #define FREQ1_D_MASK 0x8000
 #define PHASE0_D_MASK 0xC000
 #define PHASE1_D_MASK 0xE000
 
-#define RESET_CMD 0x2100
-#define SINE_CMD 0x2000
-#define TRI_CMD 0x2002
-#define SQ1_CMD 0x2020
-#define SQ2_CMD 0x2028
+// #define RESET_CMD 0x0100
+// #define SINE_CMD 0x0000
+// #define TRI_CMD 0x0002
+// #define SQ1_CMD 0x0020
+// #define SQ2_CMD 0x0028 // commands for square waves need to be fixed...
+// also need to refine procedure of changing command and control registers. See example by Northwestern Mechatronics
 
 #define PI 3.14159265358979323846 /* pi */ //precision copied from <math.h>
 

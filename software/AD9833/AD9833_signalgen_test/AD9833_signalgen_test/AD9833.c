@@ -14,7 +14,6 @@
 #include <avr/io.h>
 #include "AD9833.h"
 
-
 /*************************************************************************
 Function: SPI_init()
 Purpose:  initialize the SPI bus 
@@ -23,8 +22,8 @@ Returns:  none
 **************************************************************************/
 void SPI_init (void)
 {
-	DDRB |= (1<<SPI_CS) | (1<<SPI_MOSI) | (SPI_SCK); // set SCK,MOSI,CS as Fsync 
-	PORTB |= (1<<SPI_CS) | (1<<SPI_SCK); // SCK and CS high
+	SPI_DDR |= (1<<SPI_CS) | (1<<SPI_MOSI) | (1<<SPI_SCK); // set SCK,MOSI,CS as Fsync 
+	SPI_PORT |= (1<<SPI_CS) | (1<<SPI_SCK); // SCK and CS high
 	SPCR0 |= (1<<SPE) | (1<<MSTR) | (1<<CPOL); // Enable SPI // Set Master mode //	Set clk to inv.
 }
 
@@ -71,7 +70,7 @@ void Freq_change ( uint32_t freq_out, uint8_t select )  // take base10 frequency
 
 	if (select == 0 ) { 
 		MS_reg |= FREQ0_D_MASK;			// control bits for data words
-		MS_reg |= FREQ0_D_MASK;			// control bits for data words
+		LS_reg |= FREQ0_D_MASK;			// control bits for data words
 		commandWord |= (1<<B28);
 		commandWord &= ~(1<<FSELECT); // fselect is 0 for FREQ0 reg, but just so i remember
 		SPI_write16(commandWord);
@@ -118,21 +117,21 @@ Comment:  this function isn't nessecary, can be done manually
 void AD9833_init (void)
 {
 
-SPI_write16(RESET_CMD);		// control word, set output to mid value voltage 
+SPI_write16(0x0100);		// control word, set output to mid value voltage 
 
 
 Freq_change(29000,0);
 // SPI_write16(0x7288);		// Freq0 registerdata MSB  = approx. 29 khz
 // SPI_write16(0x4017);		// Freq0 registerdata LSB  = approx. 29 khz
 
-Freq_change(24000,1);
+/*Freq_change(24000,1);*/
 // SPI_write16(0xACEA);		// Freq1 registerdata MSB  = approx. 24 khz
 // SPI_write16(0x8013); 		// Freq1 registerdata LSB  = approx. 24 khz
 
-phaseChange(0,0);		// Phase offset of Freq0 = 0
-phaseChange(0,1);		// Phase offset of Freq1 = 0
+/*phaseChange(0,0);		// Phase offset of Freq0 = 0*/
+/*phaseChange(0,1);		// Phase offset of Freq1 = 0*/
 
-SPI_write16(SINE_CMD);	// control word, set output = sine
+SPI_write16(0x0000);	// control word, set output = sine
 
 }
 

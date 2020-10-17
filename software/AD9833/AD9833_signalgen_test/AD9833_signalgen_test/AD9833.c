@@ -14,12 +14,8 @@
 #include <avr/io.h>
 #include "AD9833.h"
 
-/*************************************************************************
-Function: SPI_init()
-Purpose:  initialize the SPI bus 
-Input:    none
-Returns:  none
-**************************************************************************/
+volatile uint16_t controlReg = 0;
+
 void SPI_init (void)
 {
 	SPI_DDR |= (1<<SPI_CS) | (1<<SPI_MOSI) | (1<<SPI_SCK); // set SCK,MOSI,CS as Fsync 
@@ -28,13 +24,6 @@ void SPI_init (void)
 }
 
 
-/*************************************************************************
-Function: SPI_write16()
-Purpose:  send a 16bit word to the AD9833 
-Input:    unsigned short data = 16bits
-Returns:  none
-Comment:  uses 8bit filter and two consecutive writes while fsync stays low
-**************************************************************************/
 void SPI_write16 (uint16_t data)    	// 	send a 16bit word and use fsync
 {
 
@@ -52,87 +41,95 @@ void SPI_write16 (uint16_t data)    	// 	send a 16bit word and use fsync
 	SPI_PORT |= (1<<SPI_CS);				// 	Fsync High --> End of frame
 }
 
-
-/*************************************************************************
-Function: Freq_change()
-Purpose:  change the frequency and select AD9833 onboard register
-Input:    unsigned short freq_out = frequency, unsigned int select = register 0 or 1
-Returns:  none
-Comment:  uses 14 bit filter and adds control words, 
-**************************************************************************/
-void Freq_change ( uint32_t freq_out, uint8_t select )  // take base10 frequency and do frequency hop
+void AD9833_init (void)
 {
-	//freq_reg = freq_out* 2^28/freq_mclk
-	uint32_t freq_reg = freq_out * 10.73741824; 		// make freq register from frequency // set for 25 MHz Mclk
-	uint16_t MS_reg = ((freq_reg>>14) & 0x3FFF);		// filter out MS -- make 2 x 14 bit frequency words
-	uint16_t LS_reg = (freq_reg & 0x3FFF);				// filter out LS -- make 2 x 14 bit frequency words
-	uint16_t commandWord = 0;
-
-	if (select == 0 ) { 
-		MS_reg |= FREQ0_D_MASK;			// control bits for data words
-		LS_reg |= FREQ0_D_MASK;			// control bits for data words
-		commandWord |= (1<<B28);
-		commandWord &= ~(1<<FSELECT); // fselect is 0 for FREQ0 reg, but just so i remember
-		SPI_write16(commandWord);
-		}												 
-	else if (select == 1 ) {
-		MS_reg |= FREQ1_D_MASK;			// control bits for data word
-		LS_reg |= FREQ1_D_MASK;			// control bits for data word
-		commandWord |= (1<<B28) | (1<<FSELECT);
-		SPI_write16(commandWord);
-	}			
-
-	SPI_write16(LS_reg);								// send the LS word first, to the ad9833
-	SPI_write16(MS_reg);								// send the MS word last,  to the ad9833
+// 	controlReg |= (1<<RESET);
+// 	SPI_write16(controlReg);
+// 	controlReg &= ~(1<<RESET);
+// 	freqChange(100000,0); //initial frequency of 100kHz on Freq
+// 	phaseChange(0,0); // initial phase of 0 deg
+	// idk if i did the math here right or if it even matters;
+	// this init sequence is maybe more efficient or something
+	// just uncomment the above if it doesnt work
+	// ... hopefully the above works
+	SPI_write16(INIT_RESET);
+	SPI_write16(INIT_RESET_B28);
+	SPI_write16(INIT_FREQ0_LSB);
+	SPI_write16(INIT_FREQ0_MSB);
+	SPI_write16(INIT_PHASE0);
+	SPI_write16(INIT_GO);
 }
 
-void phaseChange(int16_t phaseShift, uint8_t select) {
-	uint16_t phaseReg = (phaseShift*4096) / (2*PI);
-	uint16_t commandWord = 0;
+
+void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and do frequency hop
+{
+	//freqReg = freq_out* 2^28/freq_mclk
+	uint32_t freqReg = (freqOut * POW2_28)/MCLK;
+	uint16_t regLs = (freqReg & BITS14_MASK);
+	uint16_t regMs = ((freqReg>>14) & BITS14_MASK);
+	controlReg |= (1<<B28) | (1<<RESET);
+	
+	if (select == 0) {
+		regLs |= FREQ0_D_MASK;
+		regMs |= FREQ0_D_MASK;
+		controlReg &= ~(1<<FSELECT);
+	}
+	if (select == 1) {
+		regLs |= FREQ1_D_MASK;
+		regMs |= FREQ1_D_MASK;
+		controlReg |= (1<<FSELECT);
+	}
+	
+	SPI_write16(controlReg);
+	SPI_write16(regLs);
+	SPI_write16(regMs);
+	controlReg &= ~(1<<RESET);
+	SPI_write16(controlReg);
+}
+
+void phaseChange(uint16_t phaseShift, uint8_t select) {
+	uint16_t phaseReg = (phaseShift*POW2_12) / (2*PI);
+	controlReg |= (1<<RESET);
 	
 	if (select == 0) {
 		phaseReg |= PHASE0_D_MASK;
-		commandWord |= (1<<B28);
-		commandWord &= ~(1<<PSELECT);
-		SPI_write16(commandWord);
+		controlReg &= ~(1<<PSELECT);
 	}
-	else if (select == 1) {
+	if (select == 1) {
 		phaseReg |= PHASE1_D_MASK;
-		commandWord |= (1<<B28) | (1<<PSELECT);
-		SPI_write16(commandWord);
+		controlReg |= (1<<PSELECT);
 	}
 	
 	SPI_write16(phaseReg);
+	controlReg &= ~(1<<RESET);
 	
 }
 
-
-/*************************************************************************
-Function: AD9833_init()
-Purpose:  Init the AD9833
-Input:    none
-Returns:  none
-Comment:  this function isn't nessecary, can be done manually
-**************************************************************************/
-void AD9833_init (void)
-{
-
-SPI_write16(0x0100);		// control word, set output to mid value voltage 
-
-
-Freq_change(29000,0);
-// SPI_write16(0x7288);		// Freq0 registerdata MSB  = approx. 29 khz
-// SPI_write16(0x4017);		// Freq0 registerdata LSB  = approx. 29 khz
-
-/*Freq_change(24000,1);*/
-// SPI_write16(0xACEA);		// Freq1 registerdata MSB  = approx. 24 khz
-// SPI_write16(0x8013); 		// Freq1 registerdata LSB  = approx. 24 khz
-
-/*phaseChange(0,0);		// Phase offset of Freq0 = 0*/
-/*phaseChange(0,1);		// Phase offset of Freq1 = 0*/
-
-SPI_write16(0x0000);	// control word, set output = sine
-
+void sineOut(void) {
+	controlReg |= (1<<RESET);
+	controlReg &= ~((1<< SLEEP12) | (1<<OPBITEN) | (1<<MODE));
+	SPI_write16(controlReg);
+	controlReg &= ~(1<<RESET);
+	SPI_write16(controlReg);
 }
 
+void cosineOut(uint8_t select) {
+	sineOut();
+	phaseChange(90,select);
+}
 
+void triangleOut(void) {
+	controlReg |= (1<<RESET) | (1<<MODE);
+	controlReg &= ~((1<< SLEEP12) | (1<<OPBITEN));
+	SPI_write16(controlReg);
+	controlReg &= ~(1<<RESET);
+	SPI_write16(controlReg);
+}
+
+void squareOut(void) {
+	controlReg |= (1<<RESET) | (1<<SLEEP12) | (1<<OPBITEN) | (1<<DIV2);
+	controlReg &= ~(1<<MODE);
+	SPI_write16(controlReg);
+	controlReg &= ~(1<<RESET);
+	SPI_write16(controlReg);
+}

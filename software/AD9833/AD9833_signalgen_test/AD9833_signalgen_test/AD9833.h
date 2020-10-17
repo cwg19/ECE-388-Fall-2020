@@ -16,6 +16,7 @@
 
 #include <avr/io.h>
 
+// SPI I/O 
 #define SPI_DDR DDRB
 #define SPI_PORT PORTB
 #define SPI_PIN PINB
@@ -24,6 +25,7 @@
 #define SPI_MISO PINB4
 #define SPI_SCK PINB5
 
+// AD9833 Control Register
 #define B28 13
 #define HLB 12
 #define FSELECT 11
@@ -34,63 +36,43 @@
 #define OPBITEN 5
 #define DIV2 3 // when DIV2 == 1 then MSB of DAC is passed to vout // when DIV2 = 0 then MSB/2 of DAC is passed to vout
 #define MODE 1
+
+// Bit masks for addressing frequency and phase registers
+#define BITS14_MASK 0x3FFF
 #define FREQ0_D_MASK 0x4000
 #define FREQ1_D_MASK 0x8000
 #define PHASE0_D_MASK 0xC000
 #define PHASE1_D_MASK 0xE000
 
-// #define RESET_CMD 0x0100
-// #define SINE_CMD 0x0000
-// #define TRI_CMD 0x0002
-// #define SQ1_CMD 0x0020
-// #define SQ2_CMD 0x0028 // commands for square waves need to be fixed...
-// also need to refine procedure of changing command and control registers. See example by Northwestern Mechatronics
+// init sequence
+#define INIT_RESET 0x0100
+#define INIT_RESET_B28 0x2100
+#define INIT_FREQ0_LSB 0x624D
+#define INIT_FREQ0_MSB 0x4041
+#define INIT_PHASE0 0xC000
+#define INIT_GO 0x0000
 
+// for calculating value in FREQN reg and PHASEN reg
+#define POW2_28 0x10000000
+#define POW2_12 0x1000
+#define MCLK 25000000
 #define PI 3.14159265358979323846 /* pi */ //precision copied from <math.h>
 
-/*
-#define F_MCLCK 25000000UL
-#define F_BITS 268435456UL
-*/
+// Maximums and minimums frequency and phase
+#define FREQ_MAX 12500000
+#define FREQ_MIN 1
+#define PHASE_MAX 360
+#define PHASE_MIN 0
 
-
-/*************************************************************************
-Function: SPI_init()
-Purpose:  initialize the SPI bus 
-Input:    none
-Returns:  none
-**************************************************************************/
+// functions to interact with AD9833
 void SPI_init (void);
-
-
-/*************************************************************************
-Function: SPI_write16()
-Purpose:  send a 16bit word to the AD9833 
-Input:    unsigned short data = 16bits
-Returns:  none
-Comment:  uses 8bit filter and two consecutive writes while fsync stays low
-**************************************************************************/
 void SPI_write16 (uint16_t data);
-
-
-/*************************************************************************
-Function: Freq_change()
-Purpose:  change the frequency and select AD9833 onboard register
-Input:    unsigned short freq_out = frequency, unsigned int select = register 0 or 1
-Returns:  none
-Comment:  uses 14 bit filter and adds control words, 
-**************************************************************************/
-void Freq_change ( uint32_t freq_out, uint8_t select );
-
-void phaseChange(int16_t phaseShift, uint8_t select);
-
-/*************************************************************************
-Function: AD9833_init()
-Purpose:  Init the AD9833
-Input:    none
-Returns:  none
-Comment:  this function isn't nessecary, can be done manually
-**************************************************************************/
 void AD9833_init (void);
+void freqChange(uint32_t freqOut, uint8_t select);
+void phaseChange(uint16_t phaseShift, uint8_t select);
+void sineOut(void);
+void cosineOut(uint8_t select);
+void triangleOut(void);
+void squareOut(void);
 
-#endif // UART_H
+#endif // AD9833_H

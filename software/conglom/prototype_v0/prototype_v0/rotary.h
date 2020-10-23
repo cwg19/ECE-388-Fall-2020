@@ -16,8 +16,8 @@
 #define SET_VAL_FLAG 1
 
 void rotaryInit(void);
-void setRotaryStatus(void);
-void getNextMode(void);
-void getPreviousMode(void);
+uint8_t setRotaryStatus(uint8_t aQuiescent, uint8_t rotation);
+uint8_t getNextMode(uint8_t mode, uint8_t *modeLast);
+uint8_t getPreviousMode(uint8_t mode, uint8_t *modeLast);
 
 #endif

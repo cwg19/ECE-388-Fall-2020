@@ -16,15 +16,6 @@
 
 #include <avr/io.h>
 
-// SPI I/O 
-#define SPI_DDR DDRB
-#define SPI_PORT PORTB
-#define SPI_PIN PINB
-#define SPI_CS PINB2
-#define SPI_MOSI PINB3
-#define SPI_MISO PINB4
-#define SPI_SCK PINB5
-
 // AD9833 Control Register
 #define B28 13
 #define HLB 12
@@ -51,6 +42,7 @@
 #define INIT_FREQ0_MSB 0x4041
 #define INIT_PHASE0 0xC000
 #define INIT_GO 0x0000
+#define INIT_FREQ 100000
 
 // for calculating value in FREQN reg and PHASEN reg
 #define POW2_28 0x10000000
@@ -70,8 +62,6 @@
 #define SIGNAL_TRI 3
 
 // functions to interact with AD9833
-void SPI_init (void);
-void SPI_write16 (uint16_t data);
 void AD9833_init (void);
 void freqChange(uint32_t freqOut, uint8_t select);
 void phaseChange(uint16_t phaseShift, uint8_t select);
@@ -79,6 +69,6 @@ void sineOut(void);
 void cosineOut(uint8_t select);
 void triangleOut(void);
 void squareOut(void);
-void setSignalOut(void);
+void setSignalOut(uint8_t sigMode);
 
 #endif // AD9833_H

@@ -13,35 +13,11 @@
 
 #include <avr/io.h>
 #include "AD9833.h"
+#include "spi.h"
 
-volatile uint16_t controlReg = 0;
+static volatile uint16_t controlReg = 0;
 
 extern volatile uint8_t signal;
-
-void SPI_init (void)
-{
-	SPI_DDR |= (1<<SPI_CS) | (1<<SPI_MOSI) | (1<<SPI_SCK); // set SCK,MOSI,CS as Fsync 
-	SPI_PORT |= (1<<SPI_CS) | (1<<SPI_SCK); // SCK and CS high
-	SPCR0 |= (1<<SPE) | (1<<MSTR) | (1<<CPOL); // Enable SPI // Set Master mode //	Set clk to inv.
-}
-
-
-void SPI_write16 (uint16_t data)    	// 	send a 16bit word and use fsync
-{
-
-	unsigned char MSdata = ((data>>8) & 0x00FF);  	//filter out MS
-	unsigned char LSdata = (data & 0x00FF);			//filter out LS
-
-	SPI_PORT &= ~(1<<SPI_CS);				// 	Fsync Low --> begin frame
-	
-	SPDR0 = MSdata;							// 	send First 8 MS of data
-	while (!(SPSR0 & (1<<SPIF)));			//	while busy
-
-	SPDR0 = LSdata;							// 	send Last 8 LS of data
-	while (!(SPSR0 & (1<<SPIF)));			//	while busy
-
-	SPI_PORT |= (1<<SPI_CS);				// 	Fsync High --> End of frame
-}
 
 void AD9833_init (void)
 {
@@ -65,8 +41,10 @@ void AD9833_init (void)
 
 void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and do frequency hop
 {
+	if (freqOut > FREQ_MAX) freqOut = FREQ_MAX;
+	else if (freqOut < FREQ_MIN) freqOut = FREQ_MIN;
 	//freqReg = freq_out* 2^28/freq_mclk
-	uint32_t freqReg = (freqOut * POW2_28)/MCLK;
+	uint64_t freqReg = (freqOut * POW2_28)/MCLK; // maybe doesnt need to be 64 bits, but freq changing wasn't working last
 	uint16_t regLs = (freqReg & BITS14_MASK);
 	uint16_t regMs = ((freqReg>>14) & BITS14_MASK);
 	controlReg |= (1<<B28) | (1<<RESET);
@@ -76,7 +54,7 @@ void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and 
 		regMs |= FREQ0_D_MASK;
 		controlReg &= ~(1<<FSELECT);
 	}
-	if (select == 1) {
+	else if (select == 1) {
 		regLs |= FREQ1_D_MASK;
 		regMs |= FREQ1_D_MASK;
 		controlReg |= (1<<FSELECT);
@@ -87,6 +65,7 @@ void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and 
 	SPI_write16(regMs);
 	controlReg &= ~(1<<RESET);
 	SPI_write16(controlReg);
+	
 }
 
 void phaseChange(uint16_t phaseShift, uint8_t select) {
@@ -136,8 +115,8 @@ void squareOut(void) {
 	SPI_write16(controlReg);
 }
 
-void setSignalOut(void) {
-	switch (signal) {
+void setSignalOut(uint8_t sigMode) {
+	switch (sigMode) {
 		case SIGNAL_SIN:
 			sineOut();
 			break;

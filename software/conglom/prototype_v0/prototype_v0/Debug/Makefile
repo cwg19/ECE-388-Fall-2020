@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../lcd_i2cmaster.c \
 ../main.c \
 ../rotary.c \
+../spi.c \
 ../twimaster.c \
 ../userinterface.c
 
@@ -56,6 +57,7 @@ AD9833.o \
 lcd_i2cmaster.o \
 main.o \
 rotary.o \
+spi.o \
 twimaster.o \
 userinterface.o
 
@@ -64,6 +66,7 @@ AD9833.o \
 lcd_i2cmaster.o \
 main.o \
 rotary.o \
+spi.o \
 twimaster.o \
 userinterface.o
 
@@ -72,6 +75,7 @@ AD9833.d \
 lcd_i2cmaster.d \
 main.d \
 rotary.d \
+spi.d \
 twimaster.d \
 userinterface.d
 
@@ -80,6 +84,7 @@ AD9833.d \
 lcd_i2cmaster.d \
 main.d \
 rotary.d \
+spi.d \
 twimaster.d \
 userinterface.d
 
@@ -119,6 +124,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./rotary.o: .././rotary.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./spi.o: .././spi.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328pb -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega328pb" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

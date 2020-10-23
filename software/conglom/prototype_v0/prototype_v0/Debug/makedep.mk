@@ -10,6 +10,8 @@ main.c
 
 rotary.c
 
+spi.c
+
 twimaster.c
 
 userinterface.c

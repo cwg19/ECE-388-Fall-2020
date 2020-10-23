@@ -19,36 +19,44 @@
 	In each mode display the mode and the appro
 */
 
-extern volatile uint8_t mode;
-extern volatile uint8_t modeLast;
+// extern volatile uint8_t mode;
+// extern volatile uint8_t modeLast;
 extern volatile uint8_t setVal;
-extern volatile uint8_t aQuiescent;
-extern volatile uint8_t aState;
-extern volatile uint8_t rotation;
+/*extern volatile uint8_t aQuiescent;*/
+/*extern volatile uint8_t aState;*/
+/*extern volatile uint8_t rotation;*/
 
-extern volatile const char* labels[4];
-extern volatile const char* units[3];
-extern volatile const char* signals[4];
+// extern volatile const char* labels[4];
+// extern volatile const char* units[3];
+// extern volatile const char* signals[4];
 
-extern volatile uint32_t frequency;
-extern volatile uint16_t phase;
-extern volatile int8_t voltage;
-extern volatile uint8_t signal;
-
-extern volatile uint16_t controlReg;
-
+// extern volatile uint32_t frequency;
+// extern volatile uint16_t phase;
+// extern volatile int8_t voltage;
+// extern volatile uint8_t signal;
 
 
 int main(void) {
+	uint32_t frequency = INIT_FREQ;
+	uint16_t phase = 0;
+	int8_t voltage = 1; // probably won't be able to display voltage
+	uint8_t signal = SIGNAL_SIN;
+	
+	uint8_t mode = MODE_SIGNAL;
+	uint8_t modeLast = 0xFF;
+	const uint8_t aQuiescent = ROTARY_PIN & (1<<ROTARY_A);
+	uint8_t rotation = NO_ROTATION;
+	
+	
 	uint8_t signalLast = signal;
 	uint32_t freqLast = frequency;
+	uint32_t fOut = frequency;
 	uint16_t phaseLast = phase;
-	aQuiescent = ROTARY_PIN & (1<<ROTARY_A);
 	uiInit();
 	SPI_init();
 	AD9833_init();
     while (1) {
-		setRotaryStatus();
+		rotation = setRotaryStatus(aQuiescent, rotation);
 		if (setVal) {
 			switch(mode) {
 				case MODE_SIGNAL:
@@ -67,9 +75,10 @@ int main(void) {
 					break;
 				case MODE_FREQUENCY:
 					if ((rotation == CLOCKWISE) && (frequency < FREQ_MAX))
-						frequency++;
+						frequency+=1000;
 					else if ((rotation == COUNTERCLOCKWISE) && (frequency > FREQ_MIN))
-						frequency--;
+						frequency-=1000;
+					fOut = frequency;
 					break;
 				case MODE_PHASE:
 					if ((rotation == CLOCKWISE) && (phase < PHASE_MAX))
@@ -80,26 +89,24 @@ int main(void) {
 			}
 		}
 		else {
-			/* DOES THIS GO HERE */
-			/* Goal is to let user cycle through choices
-			   and only change the signal output when the button
-			   was pressed */
+			if (rotation == CLOCKWISE)
+				rotation = getNextMode(mode, &modeLast);
+			else if (rotation == COUNTERCLOCKWISE)
+				rotation = getPreviousMode(mode, &modeLast);
+		}
+		// display mode and value with units
+		if (rotation != NO_ROTATION) {
+			displayRefresh(mode, &modeLast);
 			if (signal != signalLast)
 				setSignalOut();
 			if (frequency != freqLast)
-				freqChange(frequency,0);
+				freqChange(fOut,0);
 			if (phase != phaseLast)
-				phaseChange(phase,0);
-			if (rotation == CLOCKWISE)
-				getNextMode();
-			else if (rotation == COUNTERCLOCKWISE)
-				getPreviousMode();
+				phaseChange(phase,0);	
 		}
-		// display mode and value with units
-		if (rotation != NO_ROTATION)
-			displayRefresh();
 		signalLast = signal;
 		freqLast = frequency;
 		phaseLast = phase;
+		_delay_ms(10);
 	}
 }

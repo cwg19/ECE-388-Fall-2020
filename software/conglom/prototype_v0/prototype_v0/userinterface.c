@@ -1,19 +1,12 @@
 #include "userinterface.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 const char* labels[4] = {"Signal:","Voltage:","Frequency:","Phase:"};
 const char* units[3] = {" V"," Hz"," deg"};
 const char* signals[4] = {"sine","cosine","square","triangle"};
 
-// volatile uint32_t frequency = 0;
-// volatile uint16_t phase = 0;
-// volatile int8_t voltage = 0;
-// volatile uint8_t signal = 0;
-
 extern void lcd_backlight(char on);
-
-// extern volatile uint8_t mode;
-// extern volatile uint8_t modeLast;
 
 void uiInit(void) {
 	const uint8_t initMode = 0;
@@ -26,7 +19,7 @@ void uiInit(void) {
 	_delay_ms(500);
 	lcd_backlight(1);
 	_delay_ms(500);
-	displayRefresh(initMode,&initModeLast);
+	displayRefresh(initMode,&initModeLast,100000,0,1,0);
 }
 
 void clearScreen(void) {
@@ -61,8 +54,8 @@ void displayRefresh(uint8_t mode, uint8_t *modeLast, uint32_t frequency, uint16_
 	else {
 		char val[10];
 		if (mode == MODE_VOLTAGE) itoa(voltage,val,10);
-		else if (mode == MODE_FREQUENCY) itoa(frequency,val,10);
-		else if (mode == MODE_PHASE) itoa(phase,val,10);
+		if (mode == MODE_FREQUENCY) sprintf(val, "%lu", frequency);//itoa(frequency,val,10);
+		if (mode == MODE_PHASE) itoa(phase,val,10);
 		lcd_puts(val);
 		lcd_puts(units[mode-1]);
 		val[0] = '\0';

@@ -45,9 +45,9 @@
 #define INIT_FREQ 100000
 
 // for calculating value in FREQN reg and PHASEN reg
-#define POW2_28 0x10000000
+/*#define POW2_28 0x10000000*/
 #define POW2_12 0x1000
-#define MCLK 25000000
+/*#define MCLK 25000000*/
 #define PI 3.14159265358979323846 /* pi */ //precision copied from <math.h>
 
 // Maximums and minimums frequency and phase

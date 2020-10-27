@@ -17,8 +17,6 @@
 
 static volatile uint16_t controlReg = 0;
 
-extern volatile uint8_t signal;
-
 void AD9833_init (void)
 {
 // 	controlReg |= (1<<RESET);
@@ -41,14 +39,15 @@ void AD9833_init (void)
 
 void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and do frequency hop
 {
+	uint32_t freqReg = 0;
 	if (freqOut > FREQ_MAX) freqOut = FREQ_MAX;
 	else if (freqOut < FREQ_MIN) freqOut = FREQ_MIN;
 	//freqReg = freq_out* 2^28/freq_mclk
-	uint64_t freqReg = (freqOut * POW2_28)/MCLK; // maybe doesnt need to be 64 bits, but freq changing wasn't working last
+	freqReg = freqOut * 10.73741824; // magic number stays
 	uint16_t regLs = (freqReg & BITS14_MASK);
 	uint16_t regMs = ((freqReg>>14) & BITS14_MASK);
 	controlReg |= (1<<B28) | (1<<RESET);
-	
+	// 1,127,428
 	if (select == 0) {
 		regLs |= FREQ0_D_MASK;
 		regMs |= FREQ0_D_MASK;
@@ -63,7 +62,7 @@ void freqChange(uint32_t freqOut, uint8_t select)  // take base10 frequency and 
 	SPI_write16(controlReg);
 	SPI_write16(regLs);
 	SPI_write16(regMs);
-	controlReg &= ~(1<<RESET);
+	controlReg &= ~((1<<B28) | (1<<RESET));
 	SPI_write16(controlReg);
 	
 }
@@ -82,7 +81,8 @@ void phaseChange(uint16_t phaseShift, uint8_t select) {
 	}
 	
 	SPI_write16(phaseReg);
-	controlReg &= ~(1<<RESET);
+	controlReg &= ~((1<<RESET));
+	SPI_write16(controlReg);
 	
 }
 

@@ -2,6 +2,7 @@
 #define ROTARY_H
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 // Rotary encoder
 #define ROTARY_DDR DDRC
@@ -17,6 +18,7 @@
 
 void rotaryInit(void);
 uint8_t setRotaryStatus(uint8_t aQuiescent, uint8_t rotation);
+void initHeartbeatTimer();
 uint8_t getNextMode(uint8_t mode, uint8_t *modeLast);
 uint8_t getPreviousMode(uint8_t mode, uint8_t *modeLast);
 

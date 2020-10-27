@@ -3,7 +3,7 @@
 
 ### Project Scope
 Simple Function gnerator
-* produces sine, cosine, square, and triangle waves
+* produces sine, square, and triangle waves
 * Adjustable frequency up to 1MHz
 * Adjustable gain between +/- 5V
 * Adjustable phase

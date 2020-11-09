@@ -1,7 +1,7 @@
 {
     "Header": {
         "Comment": "All values are metric (mm)",
-        "CreationDate": "2020-11-03T01:17:22Z",
+        "CreationDate": "2020-11-09T18:31:38Z",
         "GenerationSoftware": {
             "Application": "EAGLE",
             "Vendor": "Autodesk",
@@ -13,12 +13,12 @@
         "BoardThickness": 1.57,
         "LayerNumber": 2,
         "Name": {
-            "ProjectId": "funcgen1"
+            "ProjectId": "funcgen3"
         },
         "Owner": "Christopher Gravelle <cgravelle@umassd.edu>",
         "Size": {
-            "X": 111.74,
-            "Y": 73.33
+            "X": 55.352,
+            "Y": 56.82
         }
     }
 }

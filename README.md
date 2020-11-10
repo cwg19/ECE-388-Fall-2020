@@ -3,9 +3,10 @@
 
 ### Project Scope
 Simple Function gnerator
-* produces sine, square, and triangle waves
+* produces sinusoid, square, and triangle waves
 * Adjustable frequency up to 1MHz
-* Adjustable gain between +/- 5V
+* Adjustable gain between +/- ~10V
 * Adjustable phase
 * Rotary encoder w/ push button to select setting and change value
+* Keypad to enter value
 * LCD display

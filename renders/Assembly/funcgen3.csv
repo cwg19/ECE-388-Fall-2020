@@ -1,9 +1,9 @@
 "Qty";"Value";"Device";"Package";"Parts";"Description";"AVAILABILITY";"CENTROID_NOT_SPECIFIED";"DATASHEET";"DESCRIPTION";"DIGIKEY_DESCRIPTION";"DIGIKEY_PART_NUMBER";"LEAD_FREE";"MF";"MFG_PACKAGE_IDENT";"MOUSER_PART_NUMBER";"MP";"MPN";"OC_FARNELL";"OC_NEWARK";"PACKAGE";"POPULARITY";"PREFIX";"PRICE";"PURCHASE-URL";"ROHS";"SPICEPREFIX";"TEMPERATURE_RANGE_HIGH";"TEMPERATURE_RANGE_LOW";"VOLTAGE";
-"4";"";"JP1E";"JP1";"JP5, JP7, LCD/I2C1, LCD_POW";"JUMPER";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"61";"";"";"";"";"";"";"";"";
+"5";"";"JP1E";"JP1";"JP1, JP5, JP7, LCD/I2C1, LCD_POW";"JUMPER";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"61";"";"";"";"";"";"";"";"";
 "3";"";"JP2E";"JP2";"JP6, POT1K, POT50K";"JUMPER";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"34";"";"";"";"";"";"";"";"";
 "1";"";"JP4QE";"JP4Q";"JP8";"JUMPER";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"0";"";"";"";"";"";"";"";"";
 "1";"0.01uF";"C-EUC0805";"C0805";"C20";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
-"13";"0.1uF";"C-EUC0805";"C0805";"C5, C6, C11, C14, C21, C28, C29, C31, C32, C33, C34, C35, C40";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
+"14";"0.1uF";"C-EUC0805";"C0805";"C1, C5, C6, C11, C14, C21, C28, C29, C31, C32, C33, C34, C35, C40";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
 "1";"1";"R-EU_R0805";"R0805";"R1";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"86";"";"";"";"";"R";"";"";"";
 "7";"10k";"R-EU_R0805";"R0805";"R8, R9, R14, R15, R24, R32, R44";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"86";"";"";"";"";"R";"";"";"";
 "5";"10uF";"C-EUC0805";"C0805";"C2, C3, C15, C16, C24";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
@@ -16,12 +16,12 @@
 "2";"2.2uF";"C-EUC0805";"C0805";"C18, C19";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
 "2";"22pF";"C-EUC0805";"C0805";"C36, C37";"CAPACITOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"88";"";"";"";"";"C";"";"";"";
 "1";"330";"R-EU_R0805";"R0805";"R40";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"86";"";"";"";"";"R";"";"";"";
-"1";"4.7uH";"L-EUL0201";"L0201";"L1";"INDUCTOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"0";"";"";"";"";"L";"";"";"";
+"1";"4.7uH";"L-USL0805";"C0805";"L1";"INDUCTOR, American symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "1";"68k";"R-EU_R0805";"R0805";"R11";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"86";"";"";"";"";"R";"";"";"";
 "1";"AD9833";"AD9833";"MSOP10";"IC1";"LowPower Waveform Generator";"Bad";"";"";" Direct Digital Synthesis IC 10 b 25MHz 28 b Tuning 10-MSOP ";"";"";"";"Analog Devices";"";"";"AD9833";"";"";"";"MSOP-10 Analog Devices";"";"";"None";"";"";"";"";"";"";
 "1";"ASFL1";"ASFL1";"ASF";"Q2";"CRYSTAL CLOCK OSCILLATORS";"";"";"";"";"";"";"";"Abracon Corporation";"";"";"";"ASFL1-125.000MHZ-EC-T";"1838931";"19M1882";"";"0";"";"";"";"";"";"";"";"";
 "1";"AVR-ISP";"AVR-ISP";"AVR-ISP";"U$2";"Check prices";"Bad";"";"";" Emulators / Simulators AVR USB IN CIRCUIT EMUL/PRGMR ISP ";"";"";"";"Gravitech";"";"";"AVR-ISP";"";"";"";"None";"";"";"None";"";"";"";"";"";"";
-"1";"DCJ0202";"DCJ0202";"DCJ0202";"J1";"DC POWER JACK";"";"";"";"";"";"";"";"";"";"";"";"";"unknown";"unknown";"";"17";"";"";"";"";"";"";"";"";
+"3";"FIDUCIAL";"FIDUCIAL";"FIDUCIAL_1MM";"U$1, U$3, U$4";"For use by pick and place machines to calibrate the vision/machine, 1mm";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
 "2";"LM318D";"LM318D";"SOIC8";"IC4, IC5";"FAST GENERAL-PURPOSE OPERATIONAL AMPLIFIER";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"0";"";"";"";"";"";"";"";"";
 "1";"MICROCHIP_ATMEGA328PB-AUMICROCHIP_ATMEGA328PB-AU_0_0";"MICROCHIP_ATMEGA328PB-AUMICROCHIP_ATMEGA328PB-AU_0_0";"MICROCHIP_ATMEGA328PB-AU_0";"U2";"ATmega328PB Summary Datasheet";"";"No";"http://ww1.microchip.com/downloads/en/DeviceDoc/40001907A.pdf";"";"IC MCU 8BIT 32KB FLASH 32TQFP";"ATMEGA328PB-AU-ND";"yes";"Microchip";"32A";"556-ATMEGA328PB-AU";"";"ATmega328PB-AU";"";"";"TQFP32";"";"U";"";"";"yes";"";"+85°C";"-40°C";"5.5V";
 "1";"TLV1117-33IDCY";"TLV1117-33IDCY";"SOT230P700X180-4N";"U1";"Check prices";"Good";"";"";" 800-mA, 15-V, linear voltage regulator 4-SOT-223 -40 to 125 ";"";"";"";"Texas Instruments";"";"";"TLV1117-33IDCY";"";"";"";"SOT-223-4 Texas Instruments";"";"";"None";"https://pricing.snapeda.com/search/part/TLV1117-33IDCY/?ref=eda";"";"";"";"";"";
